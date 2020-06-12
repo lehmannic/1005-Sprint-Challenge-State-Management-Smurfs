@@ -1,65 +1,60 @@
-import React, { useState } from 'react';
-// import axios from 'axios';
+import React, { useState, useContext } from 'react';
+import { FormContext } from '../contexts/FormContext';
 
-// import { initialState, formReducer } from '../store/reducers/formReducer';
-// import * as actions from '../store/actions/actionTypes';
-import { addSmurf } from '../store/actions/smurfActions';
-import { connect } from 'react-redux';
+const initialFormValues = {
+  name: '',
+  age: '',
+  height: '',
+};
 
-const SmurfForm = (props) => {
-  const [newSmurfValues, setSmurfValues] = useState({
-    newName: '',
-    newAge: '',
-    newHeight: '',
-  });
+export default function SmurfForm() {
+  const { postSmurf } = useContext(FormContext);
 
-  const handleChanges = (e) => {
-    setSmurfValues({
-      ...newSmurfValues,
-      [e.target.name]: e.target.value,
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postSmurf(formValues);
+    setFormValues(initialFormValues);
+  };
+
+  const [formValues, setFormValues] = useState(initialFormValues);
+
+  const changeHandler = (e) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
 
   return (
-    <div>
-      <label>
-        Name:
-        <input
-          type='text'
-          name='newName'
-          value={newSmurfValues.newName}
-          onChange={handleChanges}
-        />
-      </label>
-      <label>
-        Age:
-        <input
-          type='text'
-          name='newAge'
-          value={newSmurfValues.newAge}
-          onChange={handleChanges}
-        />
-      </label>
-      <label>
-        Height:
-        <input
-          type='text'
-          name='newHeight'
-          value={newSmurfValues.newHeight}
-          onChange={handleChanges}
-        />
-      </label>
-      <button onClick={props.addSmurf()}>+add</button>
+    <div className='container'>
+      <form>
+        <h3>Add a smurf to the Village</h3>
+        <label>
+          Name:&nbsp;
+          <input
+            value={formValues.name}
+            onChange={changeHandler}
+            name='name'
+            type='text'
+          />
+        </label>
+        <label>
+          Age:&nbsp;
+          <input
+            value={formValues.age}
+            onChange={changeHandler}
+            name='age'
+            type='text'
+          />
+        </label>
+        <label>
+          Height:&nbsp;
+          <input
+            value={formValues.height}
+            onChange={changeHandler}
+            name='height'
+            type='text'
+          />
+        </label>
+      </form>
+      <button onClick={handleSubmit}>Add Smurf</button>
     </div>
   );
-};
-const mapStateToProps = (state) => {
-  // console.log(state);
-  return {
-    village: state.smurfReducer.event,
-    isFetching: state.smurfReducer.isFetching,
-    error: state.smurfReducer.error,
-  };
-};
-
-export default connect(mapStateToProps, { addSmurf })(SmurfForm);
+}
