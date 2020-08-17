@@ -23,10 +23,23 @@ In this challenge, you are to build a Smurfs village utilizing context or Redux 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] What problem does the context API help solve?
+  - simplifies state management (no more prop drilling)
+  - allows us to have global data that many different components can use
 - [ ] In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
+  - actions
+    minimal representation of the change in the data/application
+  - reducers
+    PURE functions that take in current state + what changes are happening and returns a new copy of state
+  - store
+    holds the state for the app
 - [ ] What is the difference between Application state and Component state? When would be a good time to use one over the other?
+  - Application state is global
+    - uses when you want multiple components in different areas of app to use state
+  - Component state is local and can only be passed down to children
 - [ ] Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
+  - it is a middleware that allows us to extend the functionally of Redux so that we can use promises (make things asynchronous)
 - [ ] What is your favorite state management system you've learned and this sprint? Please explain why!
+  - Context API is so much simpler from where I am sitting. DOnt ask me why I decided to use Redux today
 
 ## Project Set Up
 
@@ -61,11 +74,11 @@ Follow these steps to set up your project:
 ```js
 [
   {
-    name: "Brainey",
+    name: 'Brainey',
     age: 200,
-    height: "5cm",
-    id: 0
-  }
+    height: '5cm',
+    id: 0,
+  },
 ];
 ```
 
@@ -94,17 +107,17 @@ Example of object created in Smurf DB:
 ```js
 [
   {
-    name: "Brainey",
+    name: 'Brainey',
     age: 200,
-    height: "5cm",
-    id: 0
+    height: '5cm',
+    id: 0,
   },
   {
-    name: "Sleepy",
+    name: 'Sleepy',
     age: 200,
-    height: "5cm",
-    id: 1
-  }
+    height: '5cm',
+    id: 1,
+  },
 ];
 ```
 
@@ -154,10 +167,10 @@ Example:
 ```js
 output: [
   {
-    name: "Sleepy",
+    name: 'Sleepy',
     age: 200,
-    height: "5cm",
-    id: 1
-  }
+    height: '5cm',
+    id: 1,
+  },
 ];
 ```
